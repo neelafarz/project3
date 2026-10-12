@@ -63,7 +63,7 @@ js/
 - [ ] Scaffold the file structure above; confirm GitHub Pages can serve `index.html` from the repo root
 - [x] Create the art as original SVG in code (`js/character.js` + `js/icons.js`): chibi body and hair per gender, 30 composed outfits, umbrella overlay, weather icons, 2 reminder icons; skin/hair color pickers (R31, R32). Get Developer approval of a rendered preview before building all 30 outfits *(Developer approved the bodies, hair, 30 outfits, umbrella, and color pickers on 2026-10-12; `icons.js` weather and reminder icons approved 2026-10-12)*
 - [x] Build `geocode.js`: Nominatim search (manual entry) and reverse geocode (device location), with clear errors for invalid/non-US input
-- [ ] Build `weather.js`: coordinates → NWS points lookup → forecast fetch, returning per-day temp, PoP, heat index
+- [x] Build `weather.js`: coordinates → NWS points lookup → forecast fetch, returning per-day temp, PoP, heat index
 - [x] Build `storage.js`: localStorage schema for the most-recent Home location, saved trips, per-date/day recommendation state, and settings (gender, auto-delete-past-trips)
 - [ ] Build `recommendation.js`: temperature-band rules, rain/hydration triggers (R10, R12), and variation assignment/persistence (R8, R9, R13)
 - [ ] Build the Today/Home view: location entry (manual + device), date picker limited to the forecast range, units toggle, character + outfit rendering, reroll arrows, weather icon, written recommendation, reminders — using `ref-08`/`ref-12` for layout

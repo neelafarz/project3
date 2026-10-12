@@ -121,7 +121,7 @@ Reminder types: rain and hydration. Sunscreen was removed (see Revisions).
 
 Define the weather inputs, recommendation categories, coded rules, and shared state. Weather values must come from the provider, and rules must follow the weather guidance cited in `research.md`. The selected location, date, and live weather data must produce one recommendation state that drives every visual and written output.
 
-**Inputs (per location + date):** forecast high/low temp, Probability of Precipitation (PoP), heat index (derived from temp + relative humidity).
+**Inputs (per location + date):** forecast high/low temp, Probability of Precipitation (PoP), heat index (NWS-provided `heatIndex` grid series, daily maximum).
 
 **Derived recommendation state** (one object per location+date, the single source driving the character, icons, written recommendation, and reminders):
 
@@ -180,6 +180,7 @@ After implementation or testing, record requirement changes and the evidence tha
 - **2026-10-05 — Outfit art changed from layered paper-doll to one full-character image per outfit; rain modifier changed from raincoat/umbrella to an umbrella overlay.** Developer decision, since AI image tools can't reliably produce aligned transparent clothing layers. *Superseded by the next entry.*
 - **2026-10-05 — All art is now original SVG drawn in code (replacing AI-generated images), layered as body / hair / outfit pieces; skin and hair color pickers added (R31, R32).** Developer decision. Evidence: an overlay test of ChatGPT-generated body, hair, outfit and umbrella images failed alignment (hair ~1.6× too large, umbrella covered the face, body not chibi), and the color pickers require recolorable layers. SVG layers align by construction and take colors directly. R19 art credit and the Assets table updated. *Approved by the Developer on 2026-10-05.* Umbrella stays held at the figure's side; male hair is a short side-parted cut and female hair is long (Developer-reviewed renders).
 - **2026-10-12 — Storage scope clarified (R29) and units reset (R5).** Developer decision while designing `storage.js`: R29's check now names every stored data type (location, trips, per-date picks, display preferences) instead of only location/trip data; the °F/°C choice is not persisted and resets to °F each visit.
+- **2026-10-12 — Heat index is NWS-provided, not computed (R12).** Developer decision while building `weather.js`: api.weather.gov's grid data supplies a `heatIndex` series covering the full ~7-day window, so the app uses each day's maximum instead of deriving it from temperature and humidity. Days with no heat-index value (e.g., cold locations) never trigger the hydration reminder.
 
 ## Approval
 
