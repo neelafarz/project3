@@ -54,4 +54,4 @@ What to Wear: a client-side web app (plain HTML/CSS/ES modules, no build step) t
 
 **Structure:** `index.html` + `styles.css`; `js/main.js` (wiring, Today view), `js/trips.js`, `js/info.js`, `js/render.js` (shared DOM drawing), `js/recommendation.js` (bands, reminders, picks), `js/weather.js`, `js/geocode.js`, `js/storage.js` (localStorage), `js/character.js` + `js/icons.js` (all art is original SVG drawn in code).
 
-**Deploy:** GitHub Pages serves the repo root over HTTPS. Work lives on branch `project-3`.
+**Deploy:** GitHub Pages serves the repo root over HTTPS. Work lives on branch `project-3`. Pages lets browsers cache files for about 10 minutes, so every stylesheet, script and module import carries a `?v=N` tag; bump N everywhere (`index.html` and the `from './x.js?v=N'` imports in `js/`) when redeploying, or users may keep seeing the old version.

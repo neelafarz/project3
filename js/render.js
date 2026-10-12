@@ -1,8 +1,8 @@
 // render.js — DOM rendering for each view. No data fetching or storage here; main.js passes everything in.
 
-import { renderCharacter } from './character.js';
-import { renderWeatherIcon, renderReminderIcon } from './icons.js';
-import { describeRecommendation } from './recommendation.js';
+import { renderCharacter } from './character.js?v=5';
+import { renderWeatherIcon, renderReminderIcon } from './icons.js?v=5';
+import { describeRecommendation } from './recommendation.js?v=5';
 
 const $ = (id) => document.getElementById(id);
 

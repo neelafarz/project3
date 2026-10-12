@@ -2,11 +2,11 @@
 // Three screens inside the Trips section: list → form (add/edit) or detail (day-by-day).
 // Recommendation picks reuse the Today rules and are stored per trip + date (R9).
 
-import { searchLocation, GeocodeError } from './geocode.js';
-import { getForecast, getDay, WeatherError } from './weather.js';
-import { computeRecommendation, rerollOutfit } from './recommendation.js';
-import { getTrips, saveTrip, deleteTrip, tripStatus, getDayState, setDayState, getSettings } from './storage.js';
-import { drawOutfit, formatDate, toUnit } from './render.js';
+import { searchLocation, GeocodeError } from './geocode.js?v=5';
+import { getForecast, getDay, WeatherError } from './weather.js?v=5';
+import { computeRecommendation, rerollOutfit } from './recommendation.js?v=5';
+import { getTrips, saveTrip, deleteTrip, tripStatus, getDayState, setDayState, getSettings } from './storage.js?v=5';
+import { drawOutfit, formatDate, toUnit } from './render.js?v=5';
 
 const $ = (id) => document.getElementById(id);
 const todayLocal = () => new Intl.DateTimeFormat('en-CA').format(new Date());

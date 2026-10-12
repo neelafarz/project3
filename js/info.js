@@ -1,8 +1,8 @@
 // info.js — Info/Settings controls: character gender, skin/hair colors, auto-delete toggle (R18, R20, R21, R31, R32)
 // plus a preview card that cycles example outfits with the chosen settings.
 
-import { renderCharacter, BANDS } from './character.js';
-import { getSettings, updateSettings } from './storage.js';
+import { renderCharacter, BANDS } from './character.js?v=5';
+import { getSettings, updateSettings } from './storage.js?v=5';
 
 const $ = (id) => document.getElementById(id);
 const BAND_NAMES = { veryCold: 'Very cold', chilly: 'Chilly', neutral: 'Neutral', hot: 'Hot', veryHot: 'Very hot' };

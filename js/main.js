@@ -1,12 +1,12 @@
 // main.js — wiring, event handlers, view switching.
 
-import { searchLocation, reverseGeocode, getDevicePosition, GeocodeError } from './geocode.js';
-import { getForecast, getDay, WeatherError } from './weather.js';
-import { computeRecommendation, rerollOutfit } from './recommendation.js';
-import { getHome, setHome, getDayState, setDayState, getSettings, runCleanup } from './storage.js';
-import { renderToday, renderDateOptions, showStatus } from './render.js';
-import { initTrips, redrawTrips, openForm } from './trips.js';
-import { initInfo } from './info.js';
+import { searchLocation, reverseGeocode, getDevicePosition, GeocodeError } from './geocode.js?v=5';
+import { getForecast, getDay, WeatherError } from './weather.js?v=5';
+import { computeRecommendation, rerollOutfit } from './recommendation.js?v=5';
+import { getHome, setHome, getDayState, setDayState, getSettings, runCleanup } from './storage.js?v=5';
+import { renderToday, renderDateOptions, showStatus } from './render.js?v=5';
+import { initTrips, redrawTrips, openForm } from './trips.js?v=5';
+import { initInfo } from './info.js?v=5';
 
 const views = document.querySelectorAll('.view');
 const navLinks = document.querySelectorAll('.nav-link');
