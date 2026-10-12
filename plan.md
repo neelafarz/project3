@@ -73,15 +73,15 @@ js/
 - [x] Apply accessibility requirements: contrast, alt text, keyboard navigation/focus, touch target sizing, `prefers-reduced-motion`, ARIA live region (R24)
 - [x] Wire loading, missing-data, service-error, and denied-permission states across every fetch point (R25–R28)
 - [x] Test and fix each checkpoint above against `spec.md` before starting the next
-- [ ] Commit meaningful working checkpoints
+- [x] Commit meaningful working checkpoints
 - [ ] Deploy to a public HTTPS URL (GitHub Pages)
 
 ### Verify and revise
 
 - [ ] Check every specification requirement
 - [ ] Test multiple locations, current and forecast dates, recommendation categories, outfit and reminder variations, and failure states
-- [ ] Verify that eligible outfit and reminder variations are selected independently rather than as fixed pairs
-- [ ] Verify that returning to a previously selected date shows the same variations
+- [x] Verify that eligible outfit and reminder variations are selected independently rather than as fixed pairs
+- [x] Verify that returning to a previously selected date shows the same variations
 - [ ] Test the deployed app, independently of the local version, on a real phone and a laptop, including both screens, accessibility, and one-handed controls
 - [ ] Prepare the usability test below
 - [ ] Test with three peers and record each session
