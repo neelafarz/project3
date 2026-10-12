@@ -86,7 +86,7 @@ js/
 - [x] Prepare the usability test below
 - [x] Test with three peers and record each session
 - [x] Add the chosen improvement to this checklist, and update `spec.md` if the intended result changes *(improvement: center the character; recorded in spec.md Revisions)*
-- [ ] Implement, verify, and redeploy at least one meaningful revision
+- [x] Implement, verify, and redeploy at least one meaningful revision *(character centering, live 2026-10-12)*
 
 ### Deliver
 
