@@ -116,8 +116,8 @@ body {
 @media (max-width: 600px) {
   .outfit-row { position: relative; }
   .arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; background: rgba(255, 255, 255, 0.9); }
-  #outfit-prev { left: 4px; }
-  #outfit-next { right: 4px; }
+  #outfit-prev, #trip-outfit-prev, #preview-prev { left: 4px; }
+  #outfit-next, #trip-outfit-next, #preview-next { right: 4px; }
 }
 
 /* Larger desktop scale: bigger type, controls and character */
@@ -199,4 +199,24 @@ body {
   #trip-day-body .today-head { margin-top: 0; }
   #trip-day-body .today-main { text-align: left; }
   #trip-day-body .recommendation, #trip-day-body .reminders, #trip-day-body .source { grid-column: 2; }
+}
+
+/* ---------- Info / Settings ---------- */
+.info-grid { display: grid; gap: 24px; max-width: 1100px; }
+.info-block { background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; }
+.info-block h2 { margin-top: 0; }
+.info-block ul { padding-left: 1.2em; }
+.info-block li { margin-bottom: 8px; }
+.info-block a { color: #1a56c4; }
+.info-block a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.setting { margin: 0 0 16px; padding: 0; border: 0; }
+.setting legend, .setting > label:first-child { font-weight: 600; }
+fieldset.setting label { margin-right: 20px; }
+.setting input[type="radio"], .setting input[type="checkbox"] { width: 22px; height: 22px; vertical-align: middle; margin-right: 6px; }
+.setting input[type="color"] { width: 64px; height: var(--tap); padding: 2px; margin-left: 12px; border: 2px solid var(--border); border-radius: 8px; background: var(--surface); vertical-align: middle; cursor: pointer; }
+.preview .outfit-row { margin: 8px 0 0; }
+.preview .character svg { height: 340px; }
+@media (min-width: 900px) {
+  .info-grid { grid-template-columns: minmax(340px, 460px) 1fr; align-items: start; }
+  .preview .character svg { height: 420px; }
 }

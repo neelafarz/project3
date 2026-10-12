@@ -6,6 +6,7 @@ import { computeRecommendation, rerollOutfit } from './recommendation.js';
 import { getHome, setHome, getDayState, setDayState, getSettings, runCleanup } from './storage.js';
 import { renderToday, renderDateOptions, showStatus } from './render.js';
 import { initTrips, redrawTrips, openForm } from './trips.js';
+import { initInfo } from './info.js';
 
 const views = document.querySelectorAll('.view');
 const navLinks = document.querySelectorAll('.nav-link');
@@ -125,6 +126,11 @@ $('outfit-next').addEventListener('click', () => reroll(1));
 
 initTrips({ getUnits: () => today.units, toggleUnits });
 $('today-add-trip').addEventListener('click', () => openForm()); // "Add trip" on Today opens the form directly
+
+// ---------- Info / Settings ----------
+
+// Gender and colors apply app-wide, so redraw whatever is showing on Today and Trips (R21, R31, R32).
+initInfo({ onChange: () => { if (today.forecast) draw(); redrawTrips(); } });
 
 // ---------- Startup ----------
 

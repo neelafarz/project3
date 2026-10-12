@@ -143,7 +143,81 @@
 
       <section class="view" data-view="info" aria-labelledby="info-title" hidden>
         <h1 id="info-title">Info &amp; Settings</h1>
-        <p>Sources, credits, privacy and settings will appear here.</p>
+
+        <div class="info-grid">
+          <section class="info-block" aria-labelledby="settings-h">
+            <h2 id="settings-h">Settings</h2>
+
+            <fieldset class="setting">
+              <legend>Character</legend>
+              <label><input type="radio" name="gender" value="female"> Female</label>
+              <label><input type="radio" name="gender" value="male"> Male</label>
+            </fieldset>
+
+            <div class="setting">
+              <label for="skin-color">Skin color</label>
+              <input id="skin-color" type="color">
+            </div>
+            <div class="setting">
+              <label for="hair-color">Hair color</label>
+              <input id="hair-color" type="color">
+            </div>
+
+            <div class="setting">
+              <label><input id="auto-delete" type="checkbox"> Automatically delete past trips</label>
+              <p class="note">When on, completed trips are removed the next time the app loads. When off, they stay in your list as Complete.</p>
+            </div>
+
+            <div class="preview" aria-label="Character preview">
+              <div class="outfit-row">
+                <button type="button" id="preview-prev" class="arrow" aria-label="Previous example outfit">&lsaquo;</button>
+                <div class="outfit-card"><div class="character" id="preview-character"></div><p class="card-label" id="preview-label"></p></div>
+                <button type="button" id="preview-next" class="arrow" aria-label="Next example outfit">&rsaquo;</button>
+              </div>
+            </div>
+          </section>
+
+          <div class="info-text">
+            <section class="info-block" aria-labelledby="about-h">
+              <h2 id="about-h">About</h2>
+              <p>What to Wear shows an illustrated outfit for the weather at a US location, today or on a trip. Created by [CREATOR NAME].</p>
+            </section>
+
+            <section class="info-block" aria-labelledby="data-h">
+              <h2 id="data-h">Data sources</h2>
+              <ul>
+                <li><strong>Weather:</strong> <a href="https://www.weather.gov/documentation/services-web-api">National Weather Service (api.weather.gov)</a>. Forecasts cover about 7 days. The "now" temperature is the forecast for the current hour, not a station reading.</li>
+                <li><strong>Place search:</strong> <a href="https://nominatim.openstreetmap.org/">Nominatim</a>, using data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL). Searches are limited to the United States.</li>
+              </ul>
+            </section>
+
+            <section class="info-block" aria-labelledby="how-h">
+              <h2 id="how-h">How recommendations are made</h2>
+              <ul>
+                <li><strong>Outfit by the day&rsquo;s forecast high:</strong> below 40&deg;F very cold, 40&ndash;59 chilly, 60&ndash;80 neutral, 81&ndash;90 hot, 91 and up very hot. There is no official standard for temperature-to-clothing; these cutoffs are our judgment, informed by consumer dressing guides such as <a href="https://fittheforecast.com/blog/what-to-wear-by-temperature">Fit The Forecast</a>.</li>
+                <li><strong>Umbrella:</strong> shown when the National Weather Service chance of precipitation is 40% or higher. NWS defines that chance as the probability of at least 0.01 inch of rain (<a href="https://www.weather.gov/bgm/forecast_terms">NWS forecast terms</a>); the 40% cutoff is our choice, since NWS sets no umbrella threshold.</li>
+                <li><strong>Extra water:</strong> shown when the NWS heat index reaches 85&deg;F or higher, in line with <a href="https://www.wpc.ncep.noaa.gov/heat_index.shtml">NOAA heat index guidance</a> on heat-related fatigue and the need to drink more.</li>
+                <li>Outfit and reminder wording are picked at random from a few options and saved, so a date looks the same when you return. The arrows beside the character choose a different outfit.</li>
+              </ul>
+            </section>
+
+            <section class="info-block" aria-labelledby="privacy-h">
+              <h2 id="privacy-h">Privacy</h2>
+              <ul>
+                <li>Everything stays in your browser. There is no account, no analytics and no tracking.</li>
+                <li>Your browser stores your latest Home location, saved trips, the outfit and wording picked for each date, and your settings (character, colors, auto-delete). The &deg;F/&deg;C choice is not saved.</li>
+                <li>Place names you search for, and coordinates, are sent only to Nominatim and api.weather.gov to get a place and a forecast.</li>
+                <li>Your device location is requested only when you press &ldquo;Use my location.&rdquo; If you decline, you can type a place instead.</li>
+              </ul>
+            </section>
+
+            <section class="info-block" aria-labelledby="art-h">
+              <h2 id="art-h">Art credits</h2>
+              <p>All character, outfit, umbrella and icon art is original SVG, created by [CREATOR NAME] with Claude, an AI coding assistant. No third-party images are used in the app.</p>
+              <p>Style and layout references (inspiration only, none reproduced): travel-app and weather-widget mockups and outfit illustrations found on Pinterest, the CARROT Weather app, and the Duolingo mascot&rsquo;s expressiveness.</p>
+            </section>
+          </div>
+        </div>
       </section>
     </main>
   </div>
