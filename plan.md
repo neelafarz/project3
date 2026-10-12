@@ -72,7 +72,7 @@ js/
 - [x] Apply responsive layouts: one-handed phone layout and sidebar/multi-pane laptop layout (R22, R23)
 - [x] Apply accessibility requirements: contrast, alt text, keyboard navigation/focus, touch target sizing, `prefers-reduced-motion`, ARIA live region (R24)
 - [x] Wire loading, missing-data, service-error, and denied-permission states across every fetch point (R25–R28)
-- [ ] Test and fix each checkpoint above against `spec.md` before starting the next
+- [x] Test and fix each checkpoint above against `spec.md` before starting the next
 - [ ] Commit meaningful working checkpoints
 - [ ] Deploy to a public HTTPS URL (GitHub Pages)
 

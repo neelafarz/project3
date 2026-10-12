@@ -46,4 +46,12 @@ When the Developer directs the Agent to save the transcript, save the entire cur
 
 # Project
 
-Fill in as the project takes shape: how to run it locally, how to test it, and any commands or structure that aren't obvious from the code.
+What to Wear: a client-side web app (plain HTML/CSS/ES modules, no build step) that shows an illustrated outfit for the weather at a US location, today or on a saved trip. Weather from api.weather.gov, place search from Nominatim.
+
+**Run locally:** ES modules need a server, so from the project root run `python3 -m http.server 8000` and open `http://localhost:8000`. Opening `index.html` directly will not work.
+
+**Test:** there is no test runner. Checks are run in a headless browser against the live app (see `plan.md` Verify section); the dev-only pages `dev-preview.html` and `progress-preview.html` are gitignored.
+
+**Structure:** `index.html` + `styles.css`; `js/main.js` (wiring, Today view), `js/trips.js`, `js/info.js`, `js/render.js` (shared DOM drawing), `js/recommendation.js` (bands, reminders, picks), `js/weather.js`, `js/geocode.js`, `js/storage.js` (localStorage), `js/character.js` + `js/icons.js` (all art is original SVG drawn in code).
+
+**Deploy:** GitHub Pages serves the repo root over HTTPS. Work lives on branch `project-3`.
