@@ -60,7 +60,7 @@ js/
 
 ### Build
 
-- [ ] Scaffold the file structure above; confirm GitHub Pages can serve `index.html` from the repo root
+- [x] Scaffold the file structure above; confirm GitHub Pages can serve `index.html` from the repo root
 - [x] Create the art as original SVG in code (`js/character.js` + `js/icons.js`): chibi body and hair per gender, 30 composed outfits, umbrella overlay, weather icons, 2 reminder icons; skin/hair color pickers (R31, R32). Get Developer approval of a rendered preview before building all 30 outfits *(Developer approved the bodies, hair, 30 outfits, umbrella, and color pickers on 2026-10-12; `icons.js` weather and reminder icons approved 2026-10-12)*
 - [x] Build `geocode.js`: Nominatim search (manual entry) and reverse geocode (device location), with clear errors for invalid/non-US input
 - [x] Build `weather.js`: coordinates → NWS points lookup → forecast fetch, returning per-day temp, PoP, heat index
@@ -74,7 +74,7 @@ js/
 - [x] Wire loading, missing-data, service-error, and denied-permission states across every fetch point (R25–R28)
 - [x] Test and fix each checkpoint above against `spec.md` before starting the next
 - [x] Commit meaningful working checkpoints
-- [ ] Deploy to a public HTTPS URL (GitHub Pages)
+- [x] Deploy to a public HTTPS URL (GitHub Pages): https://neelafarz.github.io/project3/ (served from branch `project-3`, root; verified live 2026-10-12)
 
 ### Verify and revise
 
