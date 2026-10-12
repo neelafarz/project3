@@ -17,8 +17,51 @@
 
     <main class="content">
       <section class="view" data-view="today" aria-labelledby="today-title">
-        <h1 id="today-title">Today</h1>
-        <p>Location, date, outfit and reminders will appear here.</p>
+        <h1 id="today-title" class="sr-only">Today</h1>
+
+        <form id="location-form" class="location-form" novalidate>
+          <label for="location-input">US location</label>
+          <div class="location-row">
+            <input id="location-input" type="text" autocomplete="off" placeholder="City, state (e.g., Austin, TX)">
+            <button type="submit" class="btn">Search</button>
+            <button type="button" id="device-location" class="btn btn-secondary">Use my location</button>
+          </div>
+        </form>
+
+        <div id="today-status" class="status" role="status" hidden>
+          <span id="today-status-text"></span>
+          <button type="button" id="today-retry" class="btn btn-secondary" hidden>Retry</button>
+        </div>
+
+        <div id="today-body" hidden>
+          <header class="today-head">
+            <button type="button" id="units-toggle" class="btn btn-secondary" aria-pressed="false" aria-label="Temperature units: Fahrenheit. Switch to Celsius.">°F</button>
+            <div class="today-main">
+              <label for="date-select" class="date-label">Date
+                <select id="date-select"></select>
+              </label>
+              <p class="temp" id="temp"></p>
+              <p class="temp-note" id="temp-note"></p>
+              <p class="place" id="place"></p>
+            </div>
+          </header>
+
+          <div class="outfit-row">
+            <button type="button" id="outfit-prev" class="arrow" aria-label="Previous outfit">&lsaquo;</button>
+            <div class="outfit-card" id="outfit-card">
+              <div class="weather-icon" id="weather-icon"></div>
+              <div class="character" id="character"></div>
+              <p class="card-label">Outfit</p>
+            </div>
+            <button type="button" id="outfit-next" class="arrow" aria-label="Next outfit">&rsaquo;</button>
+          </div>
+
+          <p class="recommendation" id="recommendation"></p>
+          <ul class="reminders" id="reminders"></ul>
+          <p class="source">Weather: National Weather Service (api.weather.gov)</p>
+          <p class="trip-prompt">Going on a trip? <button type="button" class="btn btn-secondary" data-target="trips">+ Add trip</button></p>
+        </div>
+        <p id="announce" class="sr-only" aria-live="polite"></p>
       </section>
 
       <section class="view" data-view="trips" aria-labelledby="trips-title" hidden>

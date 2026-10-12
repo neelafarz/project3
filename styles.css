@@ -43,7 +43,7 @@ body {
 .nav-link[aria-current="page"] { border-color: var(--accent); font-weight: 600; }
 .nav-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-.content { flex: 1; padding: 16px; }
+.content { flex: 1; min-width: 0; padding: 16px; }
 
 /* Laptop: persistent sidebar */
 @media (min-width: 900px) {
@@ -58,4 +58,64 @@ body {
   }
   .nav-link { text-align: left; }
   .content { padding: 32px; }
+}
+
+/* ---------- Today view ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.btn {
+  min-height: var(--tap); padding: 0 16px; font: inherit; cursor: pointer;
+  color: #fff; background: var(--accent); border: 2px solid var(--accent); border-radius: 8px;
+}
+.btn-secondary { color: var(--text); background: var(--surface); border-color: var(--border); }
+.btn:focus-visible, .arrow:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.location-form label { display: block; font-weight: 600; margin-bottom: 4px; }
+.location-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.location-row input { flex: 1 1 200px; min-height: var(--tap); padding: 0 12px; font: inherit; border: 2px solid var(--border); border-radius: 8px; }
+
+.status[hidden] { display: none; }
+.status { margin: 12px 0; padding: 12px 16px; background: var(--surface); border: 2px solid var(--border); border-radius: 8px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.status.error { border-color: #b3261e; }
+
+.today-head { display: flex; gap: 12px; align-items: flex-start; margin-top: 16px; }
+.today-main { flex: 1; text-align: center; }
+.date-label { display: inline-flex; gap: 8px; align-items: center; font-weight: 600; }
+.date-label select { min-height: var(--tap); font: inherit; padding: 0 8px; border: 2px solid var(--border); border-radius: 8px; background: var(--surface); }
+.temp { margin: 4px 0 0; font-size: 3.5rem; line-height: 1; font-weight: 700; }
+.temp-note { overflow-wrap: anywhere; margin: 4px 0; color: #4a5560; }
+.place { margin: 0; font-size: 1.25rem; font-weight: 600; }
+
+.outfit-row { display: flex; align-items: center; gap: 8px; margin: 16px auto; max-width: 560px; }
+.arrow { min-width: var(--tap); min-height: 64px; font-size: 2.5rem; line-height: 1; color: var(--text); background: var(--surface); border: 2px solid var(--border); border-radius: 12px; cursor: pointer; }
+.outfit-card { flex: 1; min-width: 0; position: relative; background: #dfe8f2; border-radius: 16px; padding: 8px; text-align: center; }
+.character svg { width: 100%; height: min(60vh, 560px); display: block; margin: 0 auto; }
+.weather-icon { position: absolute; top: 8px; left: 8px; width: 72px; }
+.weather-icon svg { width: 100%; height: auto; display: block; }
+.card-label { margin: 4px 0 0; font-weight: 600; }
+@media (prefers-reduced-motion: no-preference) { .character svg { animation: swap 0.25s ease; } }
+@keyframes swap { from { opacity: 0; transform: translateY(6px); } }
+
+.recommendation { max-width: 560px; margin: 0 auto 12px; font-size: 1.15rem; text-align: center; }
+.reminders { list-style: none; padding: 0; margin: 0 auto 16px; max-width: 560px; display: grid; gap: 8px; }
+.reminders li { display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: var(--surface); border: 2px solid var(--border); border-radius: 12px; }
+.reminders svg { width: 44px; height: 44px; flex: none; }
+.source { text-align: center; color: #4a5560; font-size: 0.9rem; }
+.trip-prompt { text-align: center; }
+
+@media (min-width: 900px) {
+  .today-main { text-align: left; }
+  #today-body { display: grid; grid-template-columns: minmax(320px, 520px) 1fr; column-gap: 32px; align-items: start; }
+  #today-body[hidden] { display: none; }
+  .today-head { grid-column: 1 / -1; }
+  .outfit-row { margin: 0; grid-row: 2 / span 5; }
+  .recommendation, .reminders, .source, .trip-prompt { text-align: left; margin-left: 0; }
+}
+
+/* Narrow phones: arrows float over the card edges so the character can use the full width */
+@media (max-width: 600px) {
+  .outfit-row { position: relative; }
+  .arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; background: rgba(255, 255, 255, 0.9); }
+  #outfit-prev { left: 4px; }
+  #outfit-next { right: 4px; }
 }
