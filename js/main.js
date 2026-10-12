@@ -5,6 +5,7 @@ import { getForecast, getDay, WeatherError } from './weather.js';
 import { computeRecommendation, rerollOutfit } from './recommendation.js';
 import { getHome, setHome, getDayState, setDayState, getSettings, runCleanup } from './storage.js';
 import { renderToday, renderDateOptions, showStatus } from './render.js';
+import { initTrips, redrawTrips, openForm } from './trips.js';
 
 const views = document.querySelectorAll('.view');
 const navLinks = document.querySelectorAll('.nav-link');
@@ -103,10 +104,13 @@ $('date-select').addEventListener('change', (event) => {
   draw();
 });
 
-$('units-toggle').addEventListener('click', () => {
+// One units choice shared by Today and Trips; converts client-side, no re-fetch (R5).
+function toggleUnits() {
   today.units = today.units === 'F' ? 'C' : 'F';
-  draw(); // converts client-side, no re-fetch (R5)
-});
+  if (today.forecast) draw();
+  redrawTrips();
+}
+$('units-toggle').addEventListener('click', toggleUnits);
 
 // Reroll arrows change only the outfit and save the new pick (R8, R9).
 function reroll(direction) {
@@ -116,6 +120,11 @@ function reroll(direction) {
 }
 $('outfit-prev').addEventListener('click', () => reroll(-1));
 $('outfit-next').addEventListener('click', () => reroll(1));
+
+// ---------- Trips ----------
+
+initTrips({ getUnits: () => today.units, toggleUnits });
+$('today-add-trip').addEventListener('click', () => openForm()); // "Add trip" on Today opens the form directly
 
 // ---------- Startup ----------
 

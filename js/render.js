@@ -37,6 +37,36 @@ export function renderDateOptions(forecast, selected) {
   );
 }
 
+
+/**
+ * Fill the outfit card, written recommendation and reminders for one recommendation state.
+ * `prefix` selects the element set ('' = Today, 'trip-' = trip day). `day` may be null (past trip
+ * day with only a saved pick), in which case no weather icon is drawn. Returns the spoken summary.
+ */
+export function drawOutfit(prefix, { state, day, settings }) {
+  const el = (name) => $(prefix + name);
+  const { text, reminders } = describeRecommendation(state);
+
+  // These SVG strings come from our own generators (character.js / icons.js), never from user input.
+  el('character').innerHTML = renderCharacter({
+    gender: settings.gender, band: state.temperatureBand, variation: state.outfitVariation,
+    rain: state.rainModifier, skin: settings.skin, hair: settings.hair,
+  });
+  el('weather-icon').innerHTML = day
+    ? renderWeatherIcon({ condition: day.condition, label: `${day.summary}, rain chance ${day.pop}%` })
+    : '';
+  el('recommendation').textContent = text;
+  el('reminders').replaceChildren(
+    ...reminders.map((r) => {
+      const li = document.createElement('li');
+      li.innerHTML = renderReminderIcon({ type: r.type === 'rain' ? 'umbrella' : 'hydration' });
+      li.append(r.text);
+      return li;
+    }),
+  );
+  return [text, ...reminders.map((r) => r.text)].join(' ');
+}
+
 /** Draw the whole Today screen from one recommendation state (R6). */
 export function renderToday({ location, forecast, date, state, units, settings }) {
   const day = forecast.days.find((d) => d.date === date);
@@ -55,24 +85,7 @@ export function renderToday({ location, forecast, date, state, units, settings }
   toggle.setAttribute('aria-pressed', String(units === 'C'));
   toggle.setAttribute('aria-label', `Temperature units: ${units === 'F' ? 'Fahrenheit. Switch to Celsius.' : 'Celsius. Switch to Fahrenheit.'}`);
 
-  const { text, reminders } = describeRecommendation(state);
-  const described = [text, ...reminders.map((r) => r.text)].join(' ');
-
-  // These SVG strings come from our own generators (character.js / icons.js), never from user input.
-  $('character').innerHTML = renderCharacter({
-    gender: settings.gender, band: state.temperatureBand, variation: state.outfitVariation,
-    rain: state.rainModifier, skin: settings.skin, hair: settings.hair,
-  });
-  $('weather-icon').innerHTML = renderWeatherIcon({ condition: day.condition, label: `${day.summary}, rain chance ${day.pop}%` });
-  $('recommendation').textContent = text;
-  $('reminders').replaceChildren(
-    ...reminders.map((r) => {
-      const li = document.createElement('li');
-      li.innerHTML = renderReminderIcon({ type: r.type === 'rain' ? 'umbrella' : 'hydration' });
-      li.append(r.text);
-      return li;
-    }),
-  );
+  const described = drawOutfit('', { state, day, settings });
 
   // Announce the change for screen readers (R24).
   $('announce').textContent = `${location.name}, ${formatDate(date)}: ${toUnit(day.high, units)}${unit} high. ${described}`;

@@ -59,14 +59,86 @@
           <p class="recommendation" id="recommendation"></p>
           <ul class="reminders" id="reminders"></ul>
           <p class="source">Weather: National Weather Service (api.weather.gov)</p>
-          <p class="trip-prompt">Going on a trip? <button type="button" class="btn btn-secondary" data-target="trips">+ Add trip</button></p>
+          <p class="trip-prompt">Going on a trip? <button type="button" id="today-add-trip" class="btn btn-secondary" data-target="trips">+ Add trip</button></p>
         </div>
         <p id="announce" class="sr-only" aria-live="polite"></p>
       </section>
 
       <section class="view" data-view="trips" aria-labelledby="trips-title" hidden>
         <h1 id="trips-title">Trips</h1>
-        <p>Saved trips will appear here.</p>
+
+        <!-- List screen -->
+        <div id="trips-list-screen">
+          <button type="button" id="add-trip" class="btn">+ Add trip</button>
+          <p id="trips-empty" class="note">No trips yet. Add one to see what to wear each day.</p>
+          <ul id="trips-list" class="trip-list"></ul>
+          <p class="legend"><span class="badge upcoming">Upcoming</span> <span class="badge complete">Complete</span></p>
+        </div>
+
+        <!-- Add / edit screen -->
+        <form id="trip-form" class="trip-form" novalidate hidden>
+          <h2 id="trip-form-title">Add trip</h2>
+          <label for="trip-location">US location</label>
+          <input id="trip-location" type="text" autocomplete="off" placeholder="City, state (e.g., Honolulu, HI)">
+          <label for="trip-start">Start date</label>
+          <input id="trip-start" type="date">
+          <label for="trip-end">End date</label>
+          <input id="trip-end" type="date">
+          <p id="trip-form-msg" class="form-msg" role="alert"></p>
+          <div class="btn-row">
+            <button type="submit" id="trip-save" class="btn">Save</button>
+            <button type="button" id="trip-cancel" class="btn btn-secondary">Cancel</button>
+          </div>
+        </form>
+
+        <!-- Trip detail screen -->
+        <div id="trip-detail" hidden>
+          <div class="btn-row">
+            <button type="button" id="trip-back" class="btn btn-secondary">&lsaquo; All trips</button>
+            <button type="button" id="trip-edit" class="btn btn-secondary">Edit trip</button>
+            <button type="button" id="trip-delete" class="btn btn-secondary">Delete trip</button>
+            <button type="button" id="trip-units" class="btn btn-secondary" aria-pressed="false">&deg;F</button>
+          </div>
+          <h2 id="trip-title"></h2>
+          <p id="trip-meta" class="note"></p>
+
+          <div id="trip-status" class="status" role="status" hidden>
+            <span id="trip-status-text"></span>
+            <button type="button" id="trip-retry" class="btn btn-secondary" hidden>Retry</button>
+          </div>
+
+          <div id="trip-body" hidden>
+            <ul id="trip-strip" class="day-strip" aria-label="Trip days"></ul>
+            <div id="trip-day-body">
+              <div class="today-head">
+                <div class="today-main">
+                  <div class="btn-row day-nav">
+                    <button type="button" id="day-prev" class="btn btn-secondary">&lsaquo; Previous day</button>
+                    <button type="button" id="day-next" class="btn btn-secondary">Next day &rsaquo;</button>
+                  </div>
+                  <h3 id="trip-day-label" class="day-label"></h3>
+                  <p class="temp" id="trip-temp"></p>
+                  <p class="temp-note" id="trip-temp-note"></p>
+                </div>
+              </div>
+
+              <div class="outfit-row" id="trip-outfit-row">
+                <button type="button" id="trip-outfit-prev" class="arrow" aria-label="Previous outfit">&lsaquo;</button>
+                <div class="outfit-card">
+                  <div class="weather-icon" id="trip-weather-icon"></div>
+                  <div class="character" id="trip-character"></div>
+                  <p class="card-label">Outfit</p>
+                </div>
+                <button type="button" id="trip-outfit-next" class="arrow" aria-label="Next outfit">&rsaquo;</button>
+              </div>
+
+              <p class="recommendation" id="trip-message" hidden></p>
+              <p class="recommendation" id="trip-recommendation"></p>
+              <ul class="reminders" id="trip-reminders"></ul>
+              <p class="source">Weather: National Weather Service (api.weather.gov)</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="view" data-view="info" aria-labelledby="info-title" hidden>
