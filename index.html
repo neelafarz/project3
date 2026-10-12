@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What to Wear</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Top bar on phone, sidebar on laptop (see styles.css) -->
+    <nav class="nav" aria-label="Main">
+      <button class="nav-link" data-target="today" type="button">Today</button>
+      <button class="nav-link" data-target="trips" type="button">Trips</button>
+      <button class="nav-link" data-target="info" type="button">Info</button>
+    </nav>
+
+    <main class="content">
+      <section class="view" data-view="today" aria-labelledby="today-title">
+        <h1 id="today-title">Today</h1>
+        <p>Location, date, outfit and reminders will appear here.</p>
+      </section>
+
+      <section class="view" data-view="trips" aria-labelledby="trips-title" hidden>
+        <h1 id="trips-title">Trips</h1>
+        <p>Saved trips will appear here.</p>
+      </section>
+
+      <section class="view" data-view="info" aria-labelledby="info-title" hidden>
+        <h1 id="info-title">Info &amp; Settings</h1>
+        <p>Sources, credits, privacy and settings will appear here.</p>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

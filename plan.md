@@ -35,10 +35,9 @@ js/
   recommendation.js — temperature bands, reminder rules, variation assignment
   storage.js       — localStorage read/write (home location, trips, settings, variation state)
   render.js        — DOM rendering for each view
+  character.js     — SVG body/hair/outfit/umbrella layers, composed per state
+  icons.js         — SVG weather + reminder icons
   main.js          — wiring/event handlers, view switching
-assets/
-  character/        — base dolls, outfit layers, rain modifier (per gender)
-  icons/             — weather + reminder icons
 ```
 
 **Data flow:** location + date → `geocode.js` (if manual entry) → `weather.js` fetches the matching NWS forecast period → `recommendation.js` computes the temperature band and reminder triggers, assigning (or reading persisted) variations → `storage.js` persists the resulting state keyed by location+date (or trip+day) → `render.js` draws the character, icons, written recommendation, and reminders from that one state object (per spec.md's Recommendation state section).
@@ -62,11 +61,11 @@ assets/
 ### Build
 
 - [ ] Scaffold the file structure above; confirm GitHub Pages can serve `index.html` from the repo root
-- [ ] Start asset creation (character dolls ×2 genders, 30 outfit variations, rain modifier, weather/reminder icons) — begin now, in parallel with the tasks below
+- [x] Create the art as original SVG in code (`js/character.js` + `js/icons.js`): chibi body and hair per gender, 30 composed outfits, umbrella overlay, weather icons, 2 reminder icons; skin/hair color pickers (R31, R32). Get Developer approval of a rendered preview before building all 30 outfits *(Developer approved the bodies, hair, 30 outfits, umbrella, and color pickers on 2026-10-12; `icons.js` weather and reminder icons approved 2026-10-12)*
 - [ ] Build `geocode.js`: Nominatim search (manual entry) and reverse geocode (device location), with clear errors for invalid/non-US input
-- [ ] Build `weather.js`: coordinates → NWS points lookup → forecast fetch, returning per-day temp, PoP, sky cover, heat index
+- [ ] Build `weather.js`: coordinates → NWS points lookup → forecast fetch, returning per-day temp, PoP, heat index
 - [ ] Build `storage.js`: localStorage schema for the most-recent Home location, saved trips, per-date/day recommendation state, and settings (gender, auto-delete-past-trips)
-- [ ] Build `recommendation.js`: temperature-band rules, rain/sunscreen/hydration triggers (R10–R12), and variation assignment/persistence (R8, R9, R13)
+- [ ] Build `recommendation.js`: temperature-band rules, rain/hydration triggers (R10, R12), and variation assignment/persistence (R8, R9, R13)
 - [ ] Build the Today/Home view: location entry (manual + device), date picker limited to the forecast range, units toggle, character + outfit rendering, reroll arrows, weather icon, written recommendation, reminders — using `ref-08`/`ref-12` for layout
 - [ ] Build the Trips view: add trip (location + date range of any length), trip list with upcoming/complete status, trip day navigation (Day 1/2/3…), the forecast-window gating message for out-of-range days, edit/delete — using `ref-09`, `ref-10`, `ref-11`, `ref-13`, `ref-15` for layout
 - [ ] Build the Info/Settings view: required disclosures (R19), auto-delete-past-trips toggle (R18), gender toggle (R21) — using `ref-13`/`ref-14` for layout
@@ -115,6 +114,9 @@ Before testing, record the purpose, a few realistic tasks, non-leading prompts, 
 ## Revisions
 
 Record material plan changes and why they were made.
+
+- **2026-10-05 — Scope changes from spec.md Revisions.** Sunscreen reminder removed (not relevant to clothing); outfit art is one full-character image per outfit instead of layered paper-doll (AI tools can't reliably align transparent layers). Asset task and `weather.js`/`recommendation.js` items updated to match.
+- **2026-10-05 — Art is original SVG drawn in code, not AI-generated PNGs; skin and hair color pickers added.** An overlay test of ChatGPT-generated layers failed alignment, and the pickers need recolorable layers. `assets/` folder replaced by `js/character.js` and `js/icons.js`; see spec.md Revisions.
 
 ## Saving transcripts
 

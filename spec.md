@@ -50,7 +50,7 @@ Draw every proposed screen by hand, in both phone and laptop layouts, on paper, 
 
 Translate every fixed brief requirement and the selected research-driven feature into a testable requirement. Define the chosen behavior, content, controls, current and forecast data, responsive layout, accessibility, error handling, privacy, credits, and deployment. The main screen should make clear the location, date, units, data source, and whether conditions are current or forecast. Include an acceptance check for each requirement.
 
-> Three numeric thresholds below are proposed defaults, not yet Developer-confirmed (research.md left them as judgment calls). Review and adjust before approval: **R10** (rain %), **R11** (sunscreen proxy), **R12** (hydration).
+> Two numeric thresholds below are proposed defaults, not yet Developer-confirmed (research.md left them as judgment calls). Review and adjust before approval: **R10** (rain %), **R12** (hydration).
 
 ### Location & date (Home)
 
@@ -63,16 +63,18 @@ Translate every fixed brief requirement and the selected research-driven feature
 ### Recommendation state & character
 
 - **R6 — One shared state.** Character outfit, weather icon(s), written recommendation, and reminders all derive from one recommendation state per location+date. *Check: changing date/location updates all four together, never independently.*
-- **R7 — Outfit by temperature band + rain modifier.** Character wears the outfit for the active band (Very Cold/Chilly/Neutral/Hot/Very Hot per research.md cutoffs); a rain prop (raincoat/umbrella) layers on top when the rain threshold (R10) is met. *Check: band and rain-modifier art match the day's actual temperature and precipitation chance.*
+- **R7 — Outfit by temperature band + rain modifier.** Character wears the SVG outfit for the active band (Very Cold/Chilly/Neutral/Hot/Very Hot per research.md cutoffs); an umbrella prop overlay is drawn on top when the rain threshold (R10) is met. *Check: band and rain-modifier art match the day's actual temperature and precipitation chance.*
 - **R8 — Manual reroll (outfit only).** The arrows beside the character cycle to another random outfit variation within the same category; weather icon and reminder wording are unaffected. *Check: pressing an arrow changes only the outfit art.*
 - **R9 — Reroll and view persistence.** A manual reroll is saved as the new pick for that date/day and survives reload; viewing a date without rerolling always shows its previously-assigned (or previously-rerolled) variation, never reshuffled. *Check: reroll → reload → same rerolled outfit appears; view a date, leave, return → identical outfit/reminder wording as before.*
 
 ### Reminders (proposed thresholds — confirm)
 
+Reminder types: rain and hydration. Sunscreen was removed (see Revisions).
+
 - **R10 — Rain/umbrella.** Triggers when NWS Probability of Precipitation ≥ **40%** for the selected day. *Check: a forecast ≥40% PoP shows the umbrella reminder + rain-modifier outfit; below it, neither appears.*
-- **R11 — Sunscreen (UV proxy).** Triggers when forecast high ≥ **75°F** AND NWS sky cover ≤ **40%** (documented on the Info screen as a proxy, since api.weather.gov has no UV field). *Check: a hot, mostly-clear day shows the sunscreen reminder; a hot but overcast day does not.*
+- **R11 — Removed.** Sunscreen reminder dropped (see Revisions). Number kept so other R-numbers don't shift.
 - **R12 — Extra hydration.** Triggers when heat index ≥ **85°F** (NOAA heat-index guidance). *Check: a day computing to ≥85°F heat index shows the hydration reminder.*
-- **R13 — Independent reminder wording.** Each triggered reminder's wording is chosen independently at random from ≥3 variations per reminder type, persisted the same way as outfit variations (R9). *Check: the same reminder on different days can show different wording; returning to a date keeps its original wording.*
+- **R13 — Independent reminder wording.** Each triggered reminder's (rain, hydration) wording is chosen independently at random from ≥3 variations per reminder type, persisted the same way as outfit variations (R9). *Check: the same reminder on different days can show different wording; returning to a date keeps its original wording.*
 
 ### Trips (additional feature)
 
@@ -84,9 +86,12 @@ Translate every fixed brief requirement and the selected research-driven feature
 
 ### Info / Settings screen
 
-- **R19 — Required disclosures.** Creator, weather-data source (api.weather.gov) + geocoding source (Nominatim/OpenStreetMap, with required attribution), recommendation methods and sources (apparel/reminder guidance cited in research.md), privacy practices, and art credit (AI-generation tool/method disclosed). *Check: all five items are present and match research.md's citations.*
+- **R19 — Required disclosures.** Creator, weather-data source (api.weather.gov) + geocoding source (Nominatim/OpenStreetMap, with required attribution), recommendation methods and sources (apparel/reminder guidance cited in research.md), privacy practices, and art credit (all character and icon art is original SVG created by the Developer with Claude, a coding assistant; visual references listed). *Check: all five items are present and match research.md's citations.*
 - **R20 — Auto-delete-past-trips toggle.** See R18. *Check: setting persists across reloads and visibly changes trip-list behavior.*
 - **R21 — Gender setting.** A button/toggle in Info/Settings to switch which gender's character/outfit set is shown, applied app-wide (Home and all Trips). *Check: toggling updates the character shown on Home and in open Trips without re-entering a location; the choice persists across reload.*
+
+- **R31 — Skin color picker.** A color picker (native color input, labeled) in Info/Settings sets the character's skin color, applied app-wide and persisted in localStorage. *Check: choosing a color changes the skin on Home and in open Trips immediately and after reload; the picker is operable by keyboard.*
+- **R32 — Hair color picker.** Same as R31 for hair. *Check: as R31, for hair.*
 
 ### Responsive layout
 
@@ -116,7 +121,7 @@ Translate every fixed brief requirement and the selected research-driven feature
 
 Define the weather inputs, recommendation categories, coded rules, and shared state. Weather values must come from the provider, and rules must follow the weather guidance cited in `research.md`. The selected location, date, and live weather data must produce one recommendation state that drives every visual and written output.
 
-**Inputs (per location + date):** forecast high/low temp, Probability of Precipitation (PoP), NWS sky cover, heat index (derived from temp + relative humidity).
+**Inputs (per location + date):** forecast high/low temp, Probability of Precipitation (PoP), heat index (derived from temp + relative humidity).
 
 **Derived recommendation state** (one object per location+date, the single source driving the character, icons, written recommendation, and reminders):
 
@@ -127,7 +132,6 @@ Define the weather inputs, recommendation categories, coded rules, and shared st
   rainModifier: boolean,                  // PoP >= 40% (R10)
   reminders: {
     rain:      { active: boolean, wordingVariation: 0 | 1 | 2 },  // R10
-    sunscreen: { active: boolean, wordingVariation: 0 | 1 | 2 },  // R11
     hydration: { active: boolean, wordingVariation: 0 | 1 | 2 },  // R12
   }
 }
@@ -139,8 +143,8 @@ Define the weather inputs, recommendation categories, coded rules, and shared st
 
 Define at least three outfit variations for each recommendation category and at least three wording variations for each reminder type. Define how outfit and reminder variations are chosen independently at random, and how a previously selected date keeps the same variations, including whether they persist after the page reloads.
 
-- **Outfits:** 3 variations × 5 temperature bands × 2 genders = 30 outfit variations, each optionally layered with the rain modifier (R7).
-- **Reminders:** 3 wording variations each for rain, sunscreen, and hydration (9 total strings).
+- **Outfits:** 3 variations × 5 temperature bands × 2 genders = 30 SVG outfits (composed from shared pieces: top, bottom, outerwear, shoes, accessory), each optionally overlaid with the umbrella prop (R7). Skin and hair are separate SVG layers recolored by the R31/R32 pickers, so outfits are independent of the user's colors.
+- **Reminders:** 3 wording variations each for rain and hydration (6 total strings).
 - **Independence:** outfit variation and each reminder's wording variation are chosen independently at random the first time a location+date (or trip-day) is viewed — not linked to each other.
 - **Persistence:** once assigned (or rerolled, for outfit — R8/R9), a date/day's variations are stored in localStorage keyed by location+date and survive page reloads. They only change via an explicit reroll (outfit) or if the underlying forecast data changes enough to shift the temperature band or a reminder's active/inactive state (in which case that element is re-assigned, since the prior variation no longer applies).
 
@@ -150,11 +154,11 @@ List every art and graphical asset: the character, each outfit variation, icons,
 
 | Asset | Count | Appears on | Format | Source |
 |---|---|---|---|---|
-| Base character doll | 2 (per gender) | Home, Trips day view | AI-generated image (layered/transparent PNG) | AI-generated, disclosed on Info screen |
-| Outfit layers (top/bottom/outerwear/shoes per band) | 5 bands × 3 variations × 2 genders = 30 | Home, Trips day view | AI-generated image (transparent PNG), paper-doll layered over base doll | AI-generated, disclosed on Info screen |
-| Rain modifier (raincoat/umbrella prop) | 1 (× 2 genders if style differs) | Layered over any outfit when R7/R10 trigger | AI-generated image (transparent PNG) | AI-generated, disclosed on Info screen |
-| Weather condition icons (sun/cloud/rain/etc.) | ~5–7 | Home, Trips day view, Trips day strip | AI-generated image, matching character art style | AI-generated, disclosed on Info screen |
-| Reminder icons (umbrella/sunscreen/water) | 3 | Home, Trips day view | AI-generated image, matching character art style | AI-generated, disclosed on Info screen |
+| Chibi character body + hair layers | 2 bodies + 2 hair styles (one per gender) | Home, Trips day view | Original SVG drawn in code; skin and hair recolored by R31/R32 pickers | Created by the Developer with Claude; style references in `reference/` (ref-03, ref-07), disclosed on Info screen |
+| Outfits | 5 bands × 3 variations × 2 genders = 30, composed from shared SVG pieces | Home, Trips day view | Original SVG layered over the body | Created by the Developer with Claude, disclosed on Info screen |
+| Rain modifier (umbrella prop overlay) | 1 | Overlaid on any outfit when R7/R10 trigger | Original SVG | Created by the Developer with Claude, disclosed on Info screen |
+| Weather condition icons (sun/cloud/rain/etc.) | ~5–7 | Home, Trips day view, Trips day strip | Original SVG, matching character style | Created by the Developer with Claude, disclosed on Info screen |
+| Reminder icons (umbrella/water) | 2 | Home, Trips day view | Original SVG, matching character style | Created by the Developer with Claude, disclosed on Info screen |
 | Upcoming/complete status markers | 2 (blue/orange) | Trips list | SVG/CSS | Created in-app (simple shapes, no license needed) |
 
 ## Out of scope
@@ -171,6 +175,10 @@ Record features intentionally excluded from this project.
 ## Revisions
 
 After implementation or testing, record requirement changes and the evidence that prompted them. Update the screen drawings when a material layout or interaction changes.
+
+- **2026-10-05 — Sunscreen reminder removed (R11).** Developer decision: it is not relevant to clothing. Removed the sky-cover input, the sunscreen reminder state, its wording variations (9 → 6 strings), and its icon (3 → 2).
+- **2026-10-05 — Outfit art changed from layered paper-doll to one full-character image per outfit; rain modifier changed from raincoat/umbrella to an umbrella overlay.** Developer decision, since AI image tools can't reliably produce aligned transparent clothing layers. *Superseded by the next entry.*
+- **2026-10-05 — All art is now original SVG drawn in code (replacing AI-generated images), layered as body / hair / outfit pieces; skin and hair color pickers added (R31, R32).** Developer decision. Evidence: an overlay test of ChatGPT-generated body, hair, outfit and umbrella images failed alignment (hair ~1.6× too large, umbrella covered the face, body not chibi), and the color pickers require recolorable layers. SVG layers align by construction and take colors directly. R19 art credit and the Assets table updated. *Approved by the Developer on 2026-10-05.* Umbrella stays held at the figure's side; male hair is a short side-parted cut and female hair is long (Developer-reviewed renders).
 
 ## Approval
 
