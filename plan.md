@@ -126,6 +126,8 @@ Record material plan changes and why they were made.
 
 - **2026-10-12 — Usability finding: character off-center, fixed.** Peer 2 reported the character sat left of center; measured offset was 40 of 400 frame units. `character.js` frame changed from `-40 -40 400 510` to `-115 -40 470 510` (centered on the figure at x=120, still containing the umbrella, which reaches x=352). Verified across all 60 renders (30 outfits, with and without umbrella): max offset 0 units, none clipped. Trade-off: on phones the character is about 14% smaller because the frame is wider.
 
+- **2026-10-12 — Character centering, second pass.** The frame fix centered the figure within its card, but the Developer still saw it left of center on laptops because the card sat in the left column. Laptop layout (1200px and up) is now three columns with the card exactly centered; see spec.md Revisions.
+
 ## Saving transcripts
 
 At the end of planning, ask the Developer to enter `save transcript`. When directed, save the complete conversation as `transcripts/plan-YYYY-MM-DD_HHMMSS.md`, label chat messages `Developer` and `Agent`, and confirm the saved path.

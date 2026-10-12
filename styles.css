@@ -264,3 +264,49 @@ fieldset.setting label, .setting > label { display: inline-flex; align-items: ce
   .character svg { height: min(60vh, 560px); }
   #trip-day-body .character svg { height: min(60vh, 560px); }
 }
+
+/* ---------- Laptop: character centered in the content area (usability finding, Peer 2) ----------
+   Three columns: weather info | character | advice. Narrower laptops stack and center in one column. */
+@media (min-width: 900px) and (max-width: 1199px) {
+  #today-body, #trip-day-body { display: block; }
+  .info-grid { grid-template-columns: 1fr; }
+  .today-main, #trip-day-body .today-main { text-align: center; }
+  .outfit-row { max-width: 560px; margin: 16px auto; }
+  .side { max-width: 560px; margin: 0 auto; }
+  .side .recommendation, .side .reminders, .side .source, .side .trip-prompt { text-align: center; margin-left: auto; margin-right: auto; }
+  .character svg, #trip-day-body .character svg { height: min(60vh, 560px); }
+}
+@media (min-width: 1200px) {
+  #today-body, #trip-day-body { display: grid; grid-template-columns: 1fr minmax(380px, 520px) 1fr; column-gap: 32px; align-items: start; }
+  #today-body[hidden] { display: none; }
+  .today-head, #trip-day-body .today-head { grid-column: 1; grid-row: 1; margin: 0; }
+  .today-main, #trip-day-body .today-main { text-align: center; }
+  .outfit-row { grid-column: 2; grid-row: 1; margin: 0; max-width: none; }
+  .side { grid-column: 3; grid-row: 1; }
+  .side .recommendation, .side .reminders, .side .source, .side .trip-prompt { grid-column: auto; margin-left: 0; text-align: left; }
+  .temp, #trip-day-body .temp { font-size: 4.5rem; }
+  .character svg, #trip-day-body .character svg { height: min(calc(100vh - 260px), 700px); }
+}
+@media (min-width: 1200px) {
+  /* minmax(0, 1fr) lets both side columns shrink equally, so the middle column stays exactly centered */
+  #today-body, #trip-day-body { grid-template-columns: minmax(0, 1fr) minmax(380px, 520px) minmax(0, 1fr); }
+  .today-head, #trip-day-body .today-head { flex-direction: column; align-items: center; gap: 8px; }
+  .date-label { flex-wrap: wrap; justify-content: center; }
+  .temp, #trip-day-body .temp { font-size: clamp(3rem, 3.6vw, 4.5rem); }
+  .temp-note, .place, .day-label { overflow-wrap: anywhere; }
+  #trip-day-body .day-nav { flex-wrap: wrap; }
+}
+@media (min-width: 1200px) {
+  /* Center column grows with the window so the character stays large; sides stay equal so it is dead center */
+  #today-body, #trip-day-body { grid-template-columns: minmax(0, 1fr) minmax(380px, min(36vw, 640px)) minmax(0, 1fr); }
+  .character svg, #trip-day-body .character svg { height: auto; max-height: calc(100vh - 260px); }
+}
+@media (min-width: 1200px) {
+  /* Arrows float over the card edges (as on phones) so the card uses the whole center column */
+  #today-body .outfit-row, #trip-day-body .outfit-row { position: relative; }
+  #outfit-prev, #outfit-next, #trip-outfit-prev, #trip-outfit-next {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; background: rgba(255, 255, 255, 0.9);
+  }
+  #outfit-prev, #trip-outfit-prev { left: 8px; }
+  #outfit-next, #trip-outfit-next { right: 8px; }
+}
