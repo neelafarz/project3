@@ -69,7 +69,7 @@ js/
 - [x] Build the Today/Home view: location entry (manual + device), date picker limited to the forecast range, units toggle, character + outfit rendering, reroll arrows, weather icon, written recommendation, reminders — using `ref-08`/`ref-12` for layout
 - [x] Build the Trips view: add trip (location + date range of any length), trip list with upcoming/complete status, trip day navigation (Day 1/2/3…), the forecast-window gating message for out-of-range days, edit/delete — using `ref-09`, `ref-10`, `ref-11`, `ref-13`, `ref-15` for layout
 - [x] Build the Info/Settings view: required disclosures (R19), auto-delete-past-trips toggle (R18), gender toggle (R21) — using `ref-13`/`ref-14` for layout
-- [ ] Apply responsive layouts: one-handed phone layout and sidebar/multi-pane laptop layout (R22, R23)
+- [x] Apply responsive layouts: one-handed phone layout and sidebar/multi-pane laptop layout (R22, R23)
 - [x] Apply accessibility requirements: contrast, alt text, keyboard navigation/focus, touch target sizing, `prefers-reduced-motion`, ARIA live region (R24)
 - [x] Wire loading, missing-data, service-error, and denied-permission states across every fetch point (R25–R28)
 - [ ] Test and fix each checkpoint above against `spec.md` before starting the next

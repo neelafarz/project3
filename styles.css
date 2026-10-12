@@ -19,15 +19,19 @@ body {
 
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 
-/* Phone: nav as a top bar */
+/* Phone: nav as a bottom bar, within thumb reach (R22) */
 .nav {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 5;
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  padding: 8px 16px;
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
   background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
 }
+.nav-link { flex: 1; }
 
 .nav-link {
   min-height: var(--tap);
@@ -43,7 +47,7 @@ body {
 .nav-link[aria-current="page"] { border-color: var(--accent); font-weight: 600; }
 .nav-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-.content { flex: 1; min-width: 0; padding: 16px; }
+.content { flex: 1; min-width: 0; padding: 16px 16px calc(var(--tap) + 48px + env(safe-area-inset-bottom)); } /* room for the fixed bottom nav */
 
 /* Laptop: persistent sidebar */
 @media (min-width: 900px) {
@@ -53,10 +57,11 @@ body {
     justify-content: flex-start;
     width: var(--nav-width);
     padding: 24px 16px;
-    border-bottom: 0;
+    position: static;
+    border-top: 0;
     border-right: 1px solid var(--border);
   }
-  .nav-link { text-align: left; }
+  .nav-link { flex: none; text-align: left; }
   .content { padding: 32px; }
 }
 
@@ -239,4 +244,23 @@ fieldset.setting label, .setting > label { display: inline-flex; align-items: ce
   .trip-form input[type="date"]::-webkit-calendar-picker-indicator { width: 36px; height: 36px; cursor: pointer; }
   .trip-form .btn { min-height: 68px; font-size: 1.3rem; padding: 0 28px; }
   .trip-form .btn-row { gap: 12px; }
+}
+
+/* ---------- Responsive fixes ---------- */
+@media (max-width: 380px) {
+  .today-head { flex-wrap: wrap; }
+  .date-label { flex-wrap: wrap; }
+  .temp { font-size: 3rem; }
+}
+
+/* Narrow laptops / tablets landscape: sidebar stays, but content stacks in one column until there is room for two */
+@media (min-width: 900px) and (max-width: 1099px) {
+  #today-body, #trip-day-body { display: block; }
+  .info-grid { grid-template-columns: 1fr; }
+  .today-main { text-align: center; }
+  #trip-day-body .today-main { text-align: center; }
+  .outfit-row { max-width: 560px; margin: 16px auto; }
+  .recommendation, .reminders, .source, .trip-prompt { text-align: center; margin-left: auto; margin-right: auto; max-width: 560px; }
+  .character svg { height: min(60vh, 560px); }
+  #trip-day-body .character svg { height: min(60vh, 560px); }
 }
