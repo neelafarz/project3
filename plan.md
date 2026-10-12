@@ -90,7 +90,7 @@ js/
 
 ### Deliver
 
-- [ ] Confirm all brief deliverables, sources, privacy information, and asset credits
+- [x] Confirm all brief deliverables, sources, privacy information, and asset credits *(checked against brief.md 2026-10-12; remaining items: implementation and debrief transcripts, debrief conversation, fuller peer-session notes)*
 - [ ] Save all chat transcripts
 - [ ] Complete the debrief
 
