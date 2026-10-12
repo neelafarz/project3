@@ -119,3 +119,30 @@ body {
   #outfit-prev { left: 4px; }
   #outfit-next { right: 4px; }
 }
+
+/* Larger desktop scale: bigger type, controls and character */
+@media (min-width: 900px) {
+  :root { --nav-width: 240px; --tap: 52px; }
+  html { font-size: 20px; }
+  .content { padding: 40px 48px; }
+  .temp { font-size: 6rem; }
+  .place { font-size: 1.6rem; }
+  .recommendation { font-size: 1.4rem; }
+  .reminders svg { width: 56px; height: 56px; }
+  .weather-icon { width: 104px; }
+  .arrow { min-width: 56px; min-height: 80px; }
+  .character svg { height: min(72vh, 780px); }
+  #today-body { grid-template-columns: minmax(420px, 640px) 1fr; column-gap: 48px; }
+}
+
+/* Desktop layout: character card fills the left column; weather details and advice sit on the right */
+@media (min-width: 900px) {
+  .today-head { grid-column: 2; grid-row: 1; margin-top: 0; }
+  .outfit-row { grid-column: 1; grid-row: 1 / span 6; max-width: none; }
+  .character svg { height: min(calc(100vh - 260px), 780px); }
+}
+@media (min-width: 900px) {
+  #today-body { margin-top: 20px; }
+  .today-head { margin-bottom: 20px; }
+  .today-main { text-align: left; }
+}
