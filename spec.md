@@ -58,7 +58,7 @@ Translate every fixed brief requirement and the selected research-driven feature
 - **R2 — Device location.** Browser Geolocation API, reverse-geocoded via Nominatim for a display name. *Check: granting permission shows current conditions for the device's location with a readable place name.*
 - **R3 — Most-recent-only persistence.** Only the latest Home location is saved (localStorage), replacing any prior one. *Check: choosing a new location and reloading shows the new location, not the old one.*
 - **R4 — Forecast-date range.** Date picker offers only today + api.weather.gov's available forecast days (~7). *Check: no date beyond the provider's range is selectable.*
-- **R5 — Units toggle.** °F/°C toggle converts displayed temperatures client-side. *Check: toggling changes all shown temperatures without re-fetching data.*
+- **R5 — Units toggle.** °F/°C toggle converts displayed temperatures client-side. The unit is not saved: every visit starts in °F (US-based app). *Check: toggling changes all shown temperatures without re-fetching data; after a reload the display is back to °F.*
 
 ### Recommendation state & character
 
@@ -111,7 +111,7 @@ Reminder types: rain and hydration. Sunscreen was removed (see Revisions).
 
 ### Privacy
 
-- **R29 — Client-side only.** Only the most recent Home location (R3) and saved trips are stored, in localStorage; location/search text is sent only to api.weather.gov and Nominatim; no analytics or third-party tracking; practices disclosed on the Info screen. *Check: inspecting network requests shows only weather/geocoding calls; inspecting localStorage shows only location/trip data.*
+- **R29 — Client-side only.** Only the most recent Home location (R3), saved trips, each date's recommendation picks (R9, R13), and display preferences (gender, skin/hair colors, auto-delete setting) are stored, in localStorage; location/search text is sent only to api.weather.gov and Nominatim; no analytics or third-party tracking; practices disclosed on the Info screen. *Check: inspecting network requests shows only weather/geocoding calls; inspecting localStorage shows only location, trip, recommendation-pick and display-preference data, nothing personal or identifying.*
 
 ### Deployment
 
@@ -179,6 +179,7 @@ After implementation or testing, record requirement changes and the evidence tha
 - **2026-10-05 — Sunscreen reminder removed (R11).** Developer decision: it is not relevant to clothing. Removed the sky-cover input, the sunscreen reminder state, its wording variations (9 → 6 strings), and its icon (3 → 2).
 - **2026-10-05 — Outfit art changed from layered paper-doll to one full-character image per outfit; rain modifier changed from raincoat/umbrella to an umbrella overlay.** Developer decision, since AI image tools can't reliably produce aligned transparent clothing layers. *Superseded by the next entry.*
 - **2026-10-05 — All art is now original SVG drawn in code (replacing AI-generated images), layered as body / hair / outfit pieces; skin and hair color pickers added (R31, R32).** Developer decision. Evidence: an overlay test of ChatGPT-generated body, hair, outfit and umbrella images failed alignment (hair ~1.6× too large, umbrella covered the face, body not chibi), and the color pickers require recolorable layers. SVG layers align by construction and take colors directly. R19 art credit and the Assets table updated. *Approved by the Developer on 2026-10-05.* Umbrella stays held at the figure's side; male hair is a short side-parted cut and female hair is long (Developer-reviewed renders).
+- **2026-10-12 — Storage scope clarified (R29) and units reset (R5).** Developer decision while designing `storage.js`: R29's check now names every stored data type (location, trips, per-date picks, display preferences) instead of only location/trip data; the °F/°C choice is not persisted and resets to °F each visit.
 
 ## Approval
 
