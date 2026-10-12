@@ -378,7 +378,7 @@ export function renderCharacter({ gender, band, variation, rain = false, skin = 
   const o = O[band][gender][variation];
   const t = top(g, o.top);
   const accessories = o.acc.map(([name, c]) => ACCESSORIES[name](c, g)).join('');
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 400 510" role="img" aria-label="${describe({ gender, band, rain })}">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-115 -40 470 510" role="img" aria-label="${describe({ gender, band, rain })}">
     ${hairBack(gender, hair)}
     ${body(gender, skin)}
     ${bottom(g, o.bottom)}

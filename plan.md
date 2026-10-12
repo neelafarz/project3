@@ -84,8 +84,8 @@ js/
 - [x] Verify that returning to a previously selected date shows the same variations
 - [x] Test the deployed app, independently of the local version, on a real phone and a laptop, including both screens, accessibility, and one-handed controls *(Developer confirmed on phone and laptop, including device location, 2026-10-12)*
 - [x] Prepare the usability test below
-- [ ] Test with three peers and record each session
-- [ ] Add the chosen improvement to this checklist, and update `spec.md` if the intended result changes
+- [x] Test with three peers and record each session
+- [x] Add the chosen improvement to this checklist, and update `spec.md` if the intended result changes *(improvement: center the character; recorded in spec.md Revisions)*
 - [ ] Implement, verify, and redeploy at least one meaningful revision
 
 ### Deliver
@@ -111,12 +111,20 @@ Before testing, record the purpose, a few realistic tasks, non-leading prompts, 
 
 **After all three sessions:** summarize the strongest recurring finding(s) and the one improvement they support, then add it to the Build checklist above and implement it before final deployment.
 
+**Results (2026-10-12, three peers):**
+- **P1:** liked Trips; wished forecasts were available further ahead to plan outfits sooner. Not in our control (api.weather.gov publishes about 7 days). Possible change: show the date a day's forecast becomes available.
+- **P2:** the character should sit dead center on desktop and phone. Confirmed by measurement: the figure's center line (x=120) was 40 units left of the frame's center (x=160) in `character.js`. Possible change: recenter the frame.
+- **P3:** suggested letting the user change the character's top and bottom colors. Feasible (outfit pieces are drawn from color values, like skin and hair); would add a new requirement.
+- **Strongest finding / chosen improvement (Developer decision):** center the character (P2), a confirmed defect on every screen. P1 and P3 recorded as possible future changes.
+
 ## Revisions
 
 Record material plan changes and why they were made.
 
 - **2026-10-05 — Scope changes from spec.md Revisions.** Sunscreen reminder removed (not relevant to clothing); outfit art is one full-character image per outfit instead of layered paper-doll (AI tools can't reliably align transparent layers). Asset task and `weather.js`/`recommendation.js` items updated to match.
 - **2026-10-05 — Art is original SVG drawn in code, not AI-generated PNGs; skin and hair color pickers added.** An overlay test of ChatGPT-generated layers failed alignment, and the pickers need recolorable layers. `assets/` folder replaced by `js/character.js` and `js/icons.js`; see spec.md Revisions.
+
+- **2026-10-12 — Usability finding: character off-center, fixed.** Peer 2 reported the character sat left of center; measured offset was 40 of 400 frame units. `character.js` frame changed from `-40 -40 400 510` to `-115 -40 470 510` (centered on the figure at x=120, still containing the umbrella, which reaches x=352). Verified across all 60 renders (30 outfits, with and without umbrella): max offset 0 units, none clipped. Trade-off: on phones the character is about 14% smaller because the frame is wider.
 
 ## Saving transcripts
 
