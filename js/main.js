@@ -12,7 +12,7 @@ const views = document.querySelectorAll('.view');
 const navLinks = document.querySelectorAll('.nav-link');
 
 // Show one view, hide the others, and mark the matching nav link as current.
-function showView(name) {
+function showView(name, moveFocus = false) {
   views.forEach((view) => { view.hidden = view.dataset.view !== name; });
   navLinks.forEach((link) => {
     const isCurrent = link.dataset.target === name;
@@ -20,10 +20,17 @@ function showView(name) {
     else link.removeAttribute('aria-current');
   });
   history.replaceState(null, '', `#${name}`);
+  // After a user-initiated switch, move focus to the new view's heading so screen readers and
+  // keyboard users land at the top of the new content (R24).
+  if (moveFocus) {
+    const heading = document.querySelector(`[data-view="${name}"] h1`);
+    heading.tabIndex = -1;
+    heading.focus({ preventScroll: true });
+  }
 }
 
 document.querySelectorAll('[data-target]').forEach((el) => {
-  el.addEventListener('click', () => showView(el.dataset.target));
+  el.addEventListener('click', () => showView(el.dataset.target, true));
 });
 
 // ---------- Today view ----------

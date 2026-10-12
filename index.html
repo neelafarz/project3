@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="app">
     <!-- Top bar on phone, sidebar on laptop (see styles.css) -->
     <nav class="nav" aria-label="Main">
@@ -15,7 +16,7 @@
       <button class="nav-link" data-target="info" type="button">Info</button>
     </nav>
 
-    <main class="content">
+    <main class="content" id="main" tabindex="-1">
       <section class="view" data-view="today" aria-labelledby="today-title">
         <h1 id="today-title" class="sr-only">Today</h1>
 
@@ -180,7 +181,7 @@
           <div class="info-text">
             <section class="info-block" aria-labelledby="about-h">
               <h2 id="about-h">About</h2>
-              <p>What to Wear shows an illustrated outfit for the weather at a US location, today or on a trip. Created by [CREATOR NAME].</p>
+              <p>What to Wear shows an illustrated outfit for the weather at a US location, today or on a trip. Created by Neela Farzin.</p>
             </section>
 
             <section class="info-block" aria-labelledby="data-h">
@@ -213,7 +214,7 @@
 
             <section class="info-block" aria-labelledby="art-h">
               <h2 id="art-h">Art credits</h2>
-              <p>All character, outfit, umbrella and icon art is original SVG, created by [CREATOR NAME] with Claude, an AI coding assistant. No third-party images are used in the app.</p>
+              <p>All character, outfit, umbrella and icon art is original SVG, created by Neela Farzin with Claude, an AI coding assistant. No third-party images are used in the app.</p>
               <p>Style and layout references (inspiration only, none reproduced): travel-app and weather-widget mockups and outfit illustrations found on Pinterest, the CARROT Weather app, and the Duolingo mascot&rsquo;s expressiveness.</p>
             </section>
           </div>
