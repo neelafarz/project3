@@ -78,8 +78,8 @@ js/
 
 ### Verify and revise
 
-- [ ] Check every specification requirement
-- [ ] Test multiple locations, current and forecast dates, recommendation categories, outfit and reminder variations, and failure states
+- [x] Check every specification requirement
+- [x] Test multiple locations, current and forecast dates, recommendation categories, outfit and reminder variations, and failure states
 - [x] Verify that eligible outfit and reminder variations are selected independently rather than as fixed pairs
 - [x] Verify that returning to a previously selected date shows the same variations
 - [x] Test the deployed app, independently of the local version, on a real phone and a laptop, including both screens, accessibility, and one-handed controls *(Developer confirmed on phone and laptop, including device location, 2026-10-12)*
@@ -93,6 +93,37 @@ js/
 - [ ] Confirm all brief deliverables, sources, privacy information, and asset credits
 - [ ] Save all chat transcripts
 - [ ] Complete the debrief
+
+## Verification results (2026-10-12)
+
+Checked against `spec.md`. Evidence came from headless-Chrome runs against the live NWS and Nominatim services (local server and the deployed site), axe-core, and the Developer's own phone and laptop checks of the deployed app.
+
+| Req | Result | Evidence |
+|---|---|---|
+| R1 manual entry | Pass | Austin, Springfield IL and Washington DC resolve; "Paris, France", gibberish and empty input give clear errors |
+| R2 device location | Pass | Reverse lookup tested (Austin resolves, Toronto rejected as non-US); Developer confirmed the live button works on phone and laptop |
+| R3 latest Home only | Pass | New Home replaces the old one and survives reload |
+| R4 date range | Pass | Picker lists today + 6 forecast days only (7 options) |
+| R5 units | Pass | °F/°C converts with no refetch; resets to °F on reload |
+| R6 one shared state | Pass | Date, location and reroll changes update character, icon, text and reminders together |
+| R7 band + umbrella | Pass | 49 days across 7 locations produced all five bands; umbrella appears with rain |
+| R8–R9 reroll, persistence | Pass | Reroll changes only the outfit; survives reload; revisiting a date or trip day shows the same outfit |
+| R10, R12 thresholds | Pass | Rain triggers at 40% not 39%; hydration at heat index 85°F, never when heat index is missing |
+| R13 independent wording | Pass | All 27 outfit/rain/hydration wording combinations observed |
+| R14–R17 trips | Pass | 18-day trip saved; list status; edit; delete; per-day states |
+| R15, R26 forecast window | Pass | Trip day 12 shows "Forecast not available yet"; past days show a passed message |
+| R18, R20 auto-delete | Pass | Toggle persists; completed trip removed on next load, not on toggle |
+| R19 disclosures | Pass | Creator, NWS and Nominatim/OSM sources, methods and thresholds, privacy, art credits present |
+| R21 gender | Pass | Applies to Today and Trips without refetch; persists |
+| R22 one-handed phone | Partial | Bottom nav, single column, all touch targets at least 44px; Developer used the live site on a phone. No peer was observed one-handed |
+| R23 laptop layout | Pass | Sidebar plus three columns at 1200px and wider; stacked below |
+| R24 accessibility | Pass with a gap | axe-core 0 violations on every view at phone and laptop widths; contrast 4.75:1 or better; keyboard focus, skip link, live-region announcements, reduced motion. Not tested with a real screen reader |
+| R25–R28 states | Pass | Loading indicator; simulated network failure shows an error and recovers; denied permission shows an explanation and manual entry |
+| R29 privacy | Pass | Only nominatim.openstreetmap.org and api.weather.gov contacted; four localStorage keys; no cookies or external scripts |
+| R30 deployment | Pass | https://neelafarz.github.io/project3/ over HTTPS |
+| R31–R32 colors | Pass | Skin and hair apply to Today and Trips and persist; native color inputs |
+
+**Known gaps:** no real screen-reader test; the fog icon was not observed in live data (drawn and unit-tested only); one-handed use not formally observed in the peer sessions.
 
 ## Usability testing
 
@@ -127,6 +158,8 @@ Record material plan changes and why they were made.
 - **2026-10-12 — Usability finding: character off-center, fixed.** Peer 2 reported the character sat left of center; measured offset was 40 of 400 frame units. `character.js` frame changed from `-40 -40 400 510` to `-115 -40 470 510` (centered on the figure at x=120, still containing the umbrella, which reaches x=352). Verified across all 60 renders (30 outfits, with and without umbrella): max offset 0 units, none clipped. Trade-off: on phones the character is about 14% smaller because the frame is wider.
 
 - **2026-10-12 — Character centering, second pass.** The frame fix centered the figure within its card, but the Developer still saw it left of center on laptops because the card sat in the left column. Laptop layout (1200px and up) is now three columns with the card exactly centered; see spec.md Revisions.
+
+- **2026-10-12 — Cache-busting added.** After the centering fixes the Developer still saw the character off-center; pixel measurement of the drawing and a fresh-profile screenshot of the live site showed it centered, and the Developer confirmed it looked right after assets were versioned (`?v=5`). The likely cause was a browser holding the old cached files (GitHub Pages allows about 10 minutes). All assets now carry a version tag; see AGENTS.md.
 
 ## Saving transcripts
 
