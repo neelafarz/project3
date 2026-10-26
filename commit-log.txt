@@ -1,3 +1,21 @@
+commit 69e28136426fbd425afa7ecf5adb3db6627c849a
+Date:   2026-10-26 13:13:12 -0500
+Author: neelafarz
+
+Add debrief protocol and debrief transcript
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----------------------------------------
+commit 39b5eef2cdefb39b880baba2bf220c483c45ec20
+Date:   2026-10-12 17:48:03 -0500
+Author: neelafarz
+
+Add exported commit log
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----------------------------------------
 commit ca6ba7392a7c8a81185098c768161d80e6ca935a
 Date:   2026-10-12 16:45:18 -0500
 Author: neelafarz
